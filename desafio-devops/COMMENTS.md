@@ -1,4 +1,4 @@
-![Globo](https://www.bing.com/images/create/banner-to-a-devops-challenge/1-6623305fa9f646c08e324cafcdccf469?id=kz5Gr8w%2bNjweOKoXJGNNNg%3d%3d&view=detailv2&idpp=genimg&thId=OIG4.6eALhCkRO4_Ah3npyDKj&FORM=GCRIDP&mode=overlay)
+![Globo](img/banner.jpg)
 
 
 # Registo de reflexões e decisões
@@ -21,9 +21,9 @@ Seguindo as informações fornecidas no readme coloquei as seguintes cofiguraç�
 >
 
 >What application platform does your project use? Python
-> What version of Python do you want to use? 3.7.4
-> What port do you want your app to listen on? (8000) 8000
->  What is the command you use to run your app? gunicorn --log-level debug api:app
+>What version of Python do you want to use? 3.7.4
+>What port do you want your app to listen on? (8000) 8000
+> What is the command you use to run your app? gunicorn --log-level debug api:app
 
 Fiz um metódo para confirmar que consegui subir corretamente:
 ```py
@@ -36,7 +36,8 @@ e então:
 docker compose up --build
 ```
 
-![img](img/run.jpg)
+![](img/1.png)
+
 
 ## Referências
 
