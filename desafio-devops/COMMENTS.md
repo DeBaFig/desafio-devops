@@ -11,7 +11,32 @@
       
 ## O problema
 
-Minha primeira decisão foi inciar a documentação como instruido, e instalar python, pip e outras dependências para rodar o projeto incial.
+Minha primeira decisão foi inciar a documentação como instruído. 
+
+Então usei o seguinte comando para criar o dockerfile básico:
+```
+docker init 
+```
+Seguindo as informações fornecidas no readme coloquei as seguintes cofigurações:
+>
+
+>What application platform does your project use? Python
+> What version of Python do you want to use? 3.7.4
+> What port do you want your app to listen on? (8000) 8000
+>  What is the command you use to run your app? gunicorn --log-level debug api:app
+
+Fiz um metódo para confirmar que consegui subir corretamente:
+```py
+@app.route('/')
+def api_home():
+    return "Hello World"
+```
+e então:
+```
+docker compose up --build
+```
+
+![img](img/run.jpg)
 
 ## Referências
 

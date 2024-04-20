@@ -9,6 +9,10 @@ app.debug = True
 
 comments = {}
 
+@app.route('/')
+def api_home():
+    return "Hello World"
+
 
 @app.route('/api/comment/new', methods=['POST'])
 def api_comment_new():
