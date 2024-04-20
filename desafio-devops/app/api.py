@@ -11,7 +11,7 @@ comments = {}
 
 @app.route('/')
 def api_home():
-    return "Hello World"
+    return "Vamos começar"
 
 
 @app.route('/api/comment/new', methods=['POST'])

@@ -6,6 +6,7 @@
 
 - [Registo de reflexões e decisões](#registo-de-reflexões-e-decisões)
   - [O problema](#o-problema)
+    - [Automação da infra, provisionamento dos hosts (IaaS) e Automação de setup e configuração dos hosts (IaC)](#automação-da-infra-provisionamento-dos-hosts-iaas-e-automação-de-setup-e-configuração-dos-hosts-iac)
   - [Referências](#referências)
   - [Autora](#autora)
       
@@ -38,8 +39,21 @@ docker compose up --build
 
 ![](img/1.png)
 
+Agora procurar algum software opensource para fazer o primeiro requisito
+
+### Automação da infra, provisionamento dos hosts (IaaS) e Automação de setup e configuração dos hosts (IaC)
+
+Fiz uma pesquisa para encontrar qual tecnológia eu poderia usar para atender esses requisitos. Eu cheguei a tentar fazer um in-house provider, mas se mostrou mais complicado que eu imaginava, portanto seguirei com AWS que foi o que estudei durante o curso de DevOps da Ada.
+
+Tive que me basear em alguns cursos para conseguir fazer a automação e provisionamento usando Terraform, coloquei nas referências [Terraform Essentials](#referências)
+
+Esse curso sugere utilizar um container para usar o terraform então vou atualizar o projeto para fazer um dockercompose para esse terraform
 
 ## Referências
+
+[Containerize a Python application](https://docs.docker.com/language/python/containerize/)  
+[Ideia de In-house provider](https://davidstamen.com/2021/04/13/using-an-in-house-provider-with-terraform-v0.14/)  
+[Terraform Essentials](https://www.linuxtips.io/course/terraform-essentials)
 
 
 ## Autora
