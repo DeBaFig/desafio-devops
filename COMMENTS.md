@@ -47,7 +47,47 @@ Fiz uma pesquisa para encontrar qual tecnológia eu poderia usar para atender es
 
 Tive que me basear em alguns cursos para conseguir fazer a automação e provisionamento usando Terraform, coloquei nas referências [Terraform Essentials](#referências)
 
-Esse curso sugere utilizar um container para usar o terraform então vou atualizar o projeto para fazer um dockercompose para esse terraform
+Esse curso sugere utilizar um container para usar o terraform então vou atualizar o projeto para fazer um dockercompose para esse terraform ter seu proprio container para provisionar a aws.
+Incialmente vou rodar só o serviço para configurar o state para salvar em um bucket s3.
+
+>Se eu tivesse mais tempo provavelmente faria uma condicional para criar o bucket caso não existisse como vi nesse [link](https://stackoverflow.com/questions/67482573/create-terraform-resource-s3-bucket-object-if-already-doesnt-exists) mas acho que não é o momento, então fui no console e criei uma accesskey em um user *(como não sei as pemissões que vou usar por enquanto vou deixar comoAdministratorAccess)* no IAM da AWS.  
+
+![accesskey](img/accesskey.png)
+
+Agora um bucket no S3 para guardar o state
+
+![bucket](img/bucket.png)
+
+Para o terraform eu vou criar um serviço no docker-compose  para rodar ele e manter o terminal interativo:
+```
+docker-compose run terraform
+```
+
+```tf
+terraform:
+    image: hashicorp/terraform:light
+    stdin_open: true 
+    tty: true 
+    # stdin_open/tty = true para poder usar o terraform no container e não na minha maquina local
+    working_dir: /app
+    entrypoint: ''
+    command: sh
+    volumes:
+      - C:/Users/deniz/OneDrive/Documents/desafio-devops/desafio-devops/app:/app    
+      #para poder interagir com os arquivos do container mais facilmente e atulizar durante os testes
+```
+Dentro do container consigo realizar os comandos no terraform agora preciso cofigurar as chaves de acesso para isso criei um .env para serem usadas durante a execução do plano e então eu inicio o terraform com o seguinte comando:
+```bash
+terraform init -upgrade
+```
+e faço o plano:
+```bash
+terraform plan -out plano
+```
+Parece tudo certo, depois do apply o state chegou no meu bucket!
+
+![](img/bucketok.png)
+
 
 ## Referências
 
