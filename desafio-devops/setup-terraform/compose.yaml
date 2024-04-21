@@ -1,4 +1,3 @@
-version: "3"
 services:
   terraform:
     image: hashicorp/terraform:light
@@ -11,5 +10,5 @@ services:
     entrypoint: ''
     command: sh
     volumes:
-      - C:/Users/deniz/Downloads/desafio-devops/desafio-devops:/app
+      - C:/0/desafio-devops/desafio-devops:/app
     
