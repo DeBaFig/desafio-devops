@@ -9,7 +9,7 @@ resource "aws_codebuild_project" "this" {
 
   environment {
     type            = "LINUX_CONTAINER"
-    image           = "${aws_ecr_repository.this.repository_url}:codebuild-image"
+    image           = "${aws_ecr_repository.this.repository_url}:claranet/terraform-python"
     compute_type    = "BUILD_GENERAL1_SMALL"
     image_pull_credentials_type = "SERVICE_ROLE"
     privileged_mode = false
