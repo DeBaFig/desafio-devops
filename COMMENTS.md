@@ -89,6 +89,15 @@ Parece tudo certo, depois do apply o state chegou no meu bucket!
 ![](img/bucketok.png)
 
 
+Bem, agora foi a hora de começar a preparar a pipeline, inicialmente fui procurar um tutorial para fazer a pipeline para a AWS, seguindo esse [tutorial](https://www.tecracer.com/blog/2023/05/build-terraform-ci/cd-pipelines-using-aws-codepipeline.html) quando chegou no trecho de montar uma imagem no ecr tive um pouco de dificuldade em relação a imagem, o pip não estava instalando no container do guia. 
+
+troquei para uma imagem diferente que tinha python, pip e terraform para continuar o guia, tudo foi montado corretamente na aws, e me ajudou a entender melhor como funciona o terraform, agora vou começar a trocar alguns serviços que não são open-source. 
+
+Vou fazer a pipeline no github actions:
+
+
+
+
 ## Referências
 
 [Containerize a Python application](https://docs.docker.com/language/python/containerize/)  
