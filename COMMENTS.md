@@ -88,12 +88,69 @@ Parece tudo certo, depois do apply o state chegou no meu bucket!
 
 ![](img/bucketok.png)
 
+Para ser sincera tive bastante dificuldade de fazer IaC, tudo que aprendi tinha ou comandos CLI ou interface gráfica, mas sou brasileira e não desisto nunca, primeiro curso de [Terraform Essentials](https://www.linuxtips.io/course/terraform-essentials) me ajudou a chegar até aqui com o state sempre em nuvem, mas agora para fazer a pipeline do deploy fui procurar um tutorial.
 
-Bem, agora foi a hora de começar a preparar a pipeline, inicialmente fui procurar um tutorial para fazer a pipeline para a AWS, seguindo esse [tutorial](https://www.tecracer.com/blog/2023/05/build-terraform-ci/cd-pipelines-using-aws-codepipeline.html) quando chegou no trecho de montar uma imagem no ecr tive um pouco de dificuldade em relação a imagem, o pip não estava instalando no container do guia. 
+Achei esse [tutorial](https://www.tecracer.com/blog/2023/05/build-terraform-ci/cd-pipelines-using-aws-codepipeline.html) quando chegou no trecho de montar uma imagem no ecr tive um pouco de dificuldade em relação a imagem, o pip não estava instalando no container sugerido.
 
-troquei para uma imagem diferente que tinha python, pip e terraform para continuar o guia, tudo foi montado corretamente na aws, e me ajudou a entender melhor como funciona o terraform, agora vou começar a trocar alguns serviços que não são open-source. 
+```Dockerfile
+FROM --platform=linux/amd64 public.ecr.aws/ubuntu/ubuntu:22.04
 
-Vou fazer a pipeline no github actions:
+USER root
+
+RUN \
+# Update
+apt-get update -y && \
+# Install Unzip
+apt-get install unzip -y && \
+# need wget
+apt-get install wget -y && \
+# vim
+apt-get install vim -y && \
+# git
+apt-get install git -y && \
+# curl
+apt-get -y install curl && \
+## jq
+apt-get -y install jq && \
+# python3
+apt-get install python3 -y && \
+# python3-pip
+apt-get install python3-pip -y
+
+# update python3
+RUN python3 -m pip install --upgrade pip
+
+# install terraform 1.4.4
+RUN wget https://releases.hashicorp.com/terraform/1.4.4/terraform_1.4.4_linux_amd64.zip
+RUN unzip terraform_1.4.4_linux_amd64.zip
+RUN mv terraform /usr/local/bin/
+
+# install TFLINT
+RUN curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E -m 1 "https://.+?_linux_amd64.zip")" > tflint.zip && \
+unzip tflint.zip && \
+rm tflint.zip
+RUN mv tflint /usr/bin/
+
+# install checkov
+RUN pip3 install --no-cache-dir checkov
+
+# install TFSEC
+RUN curl -L "$(curl -s https://api.github.com/repos/aquasecurity/tfsec/releases/latest | grep -o -E -m 1 "https://.+?tfsec-linux-amd64")" > tfsec && \
+chmod +x tfsec
+RUN mv tfsec /usr/bin/
+
+# install OPA
+RUN curl -L -o opa https://openpolicyagent.org/downloads/v0.52.0/opa_linux_amd64_static
+RUN chmod 755 ./opa
+RUN mv opa /usr/bin/
+```
+
+Troquei para uma imagem diferente que tinha python, pip e terraform para continuar o guia e não ficar travada na imagem, tudo foi montado corretamente na aws. 
+
+Começei a procurar uma forma de testar no github actions em vez de usar o container sugerido pelo guia, porém teria que ter mudanças no código, pois o github Actions que seria responsável por iniciar o terraform uma vez que o código estivesse pronto.
+
+
+Primeiro providenciar um jeito de colocar no Docker Hub e usar ele para ser meu container registry, para juntar e fazer o deploy vou precisar de um orqustrador de containers como o kubernetes, então vou ter que estudar um pouco mais e procurar uns guias...
 
 
 
